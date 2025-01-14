@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from simplybooksapi.models import Book, Author
+from simplybooksapi.models import Book, Author, Genre
 
 
 class BookView(ViewSet):
@@ -15,6 +15,9 @@ class BookView(ViewSet):
         """
         try:
             book = Book.objects.get(pk=pk)
+            genres = Genre.objects.filter(bookId__book_id=book)
+            book.genres=genres.all()
+            
             serializer = BookSerializer(book)
             return Response(serializer.data)
         except Book.DoesNotExist as ex:
@@ -70,10 +73,16 @@ class BookView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ( 'id', 'description')
+        
+
 class BookSerializer(serializers.ModelSerializer):
-    """JSON serializer for artists
-    """
+
+    genres = GenreSerializer(many=True)
     class Meta:
         model = Book
-        fields = ('id', 'author', 'title', 'image', 'price', 'sale', 'uid', 'description')
+        fields = ('id', 'author', 'title', 'image', 'price', 'sale', 'uid', 'description', 'genres')
         depth = 1
