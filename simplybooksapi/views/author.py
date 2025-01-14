@@ -6,7 +6,7 @@ from django.db.models import Count
 from simplybooksapi.models import Book, Author
 
 
-class BookView(ViewSet):
+class AuthorView(ViewSet):
 
     def retrieve(self, request, pk):
         """Handle GET requests for single artist
