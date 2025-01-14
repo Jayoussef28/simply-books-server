@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
+from rest_framework import routers
+from simplybooksapi.views import AuthorView, BookView, GenreView, BookGenreView
+
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'authors', AuthorView, 'author')
+router.register(r'books', BookView, 'book')
+router.register(r'genres', GenreView, 'genre')
+router.register(r'bookgenres', BookGenreView, 'book_genre')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
 ]
