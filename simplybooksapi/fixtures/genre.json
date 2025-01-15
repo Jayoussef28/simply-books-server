@@ -1,0 +1,23 @@
+[
+  {
+      "model": "simplybooksapi.genre",
+      "pk": 1,
+      "fields": {
+        "description": "Fiction"
+      }
+  },
+  {
+      "model": "simplybooksapi.genre",
+      "pk": 2,
+      "fields": {
+        "description": "Biography"
+      }
+  },
+  {
+      "model": "simplybooksapi.genre",
+      "pk": 3,
+      "fields": {
+        "description": "Thriller"
+      }
+  }
+]

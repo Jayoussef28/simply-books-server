@@ -1,0 +1,42 @@
+[
+  {
+      "model": "simplybooksapi.book",
+      "pk": 1,
+      "fields": {
+        "author_id": "1",
+        "image": "https://images-na.ssl-images-amazon.com/images/I/91+NBrXG-PL.jpg",
+        "price": "24.99",
+        "description": "",
+        "sale": false,
+        "title": "A Promised Land",
+        "uid": ""
+
+      }
+  },
+  {
+      "model": "simplybooksapi.book",
+      "pk": 2,
+      "fields": {
+        "author_id": "2",
+        "image": "https://images-na.ssl-images-amazon.com/images/I/A1agLFsWkOL.jpg",
+        "price": "12.99",
+        "description": "",
+        "sale": true,
+        "title": "Children of Blood and Bone",
+        "uid": ""   
+      }
+  },
+  {
+      "model": "simplybooksapi.book",
+      "pk": 3,
+      "fields": {
+        "author_id": "3",
+        "image": "https://images-na.ssl-images-amazon.com/images/I/51529Lfc2ML.jpg",
+        "price": "30.00",
+        "description": "",
+        "sale": false,
+        "title": "A People's History of the United States of America",
+        "uid": ""
+      }
+  }
+]

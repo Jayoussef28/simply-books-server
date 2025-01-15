@@ -18,7 +18,7 @@ class BookView(ViewSet):
             genres = Genre.objects.filter(bookId__book_id=book)
             book.genres=genres.all()
             
-            serializer = BookSerializer(book)
+            serializer = SingleBookSerializer(book)
             return Response(serializer.data)
         except Book.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
@@ -64,8 +64,8 @@ class BookView(ViewSet):
         author = Author.objects.get(pk=request.data["author_id"])
         book.author = author
         book.save()
-
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        serializer = BookSerializer(book)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk):
         book = Book.objects.get(pk=pk)
@@ -80,6 +80,13 @@ class GenreSerializer(serializers.ModelSerializer):
         
 
 class BookSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Book
+        fields = ('id', 'author', 'title', 'image', 'price', 'sale', 'uid', 'description')
+        depth = 1
+
+class SingleBookSerializer(serializers.ModelSerializer):
 
     genres = GenreSerializer(many=True)
     class Meta:
