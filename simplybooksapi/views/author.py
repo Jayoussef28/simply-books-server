@@ -51,12 +51,14 @@ class AuthorView(ViewSet):
         author = Author.objects.get(pk=pk)
         author.email = request.data["email"]
         author.first_name = request.data["first_name"]
+        author.last_name = request.data["last_name"]
         author.image = request.data["image"]
         author.favorite = request.data["favorite"]
         author.uid = request.data["uid"]
         author.save()
 
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        serializer = AuthorSerializer(author)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk):
         author = Author.objects.get(pk=pk)
@@ -73,8 +75,8 @@ class AuthorSerializer(serializers.ModelSerializer):
         depth = 1
 
 class SingleAuthorSerializer(serializers.ModelSerializer):
-    """JSON serializer for artists
-    """
+
+    book_count = serializers.IntegerField(default=None)
     class Meta:
         model = Author
         fields = ('id', 'email', 'first_name', 'last_name', 'image', 'favorite', 'uid', 'book_count', 'books')
